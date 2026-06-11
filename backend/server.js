@@ -49,9 +49,18 @@ app.use("/api/admin",    adminRoutes);
 
 // ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
+  const dbStates = {
+    0: "disconnected",
+    1: "connected",
+    2: "connecting",
+    3: "disconnecting"
+  };
+  const dbState = mongoose.connection ? dbStates[mongoose.connection.readyState] : "unknown";
+  
   res.status(200).json({
     success: true,
     message: "Indian Tax & Expense Planner API is running ✅",
+    database: dbState,
     timestamp: new Date().toISOString(),
   });
 });
