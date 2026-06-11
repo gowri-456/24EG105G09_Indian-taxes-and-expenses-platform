@@ -20,8 +20,20 @@ connectDB();
 const app = express();
 
 // ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+if (process.env.CLIENT_URL) {
+  const clientUrl = process.env.CLIENT_URL.trim();
+  allowedOrigins.push(clientUrl);
+  // Add variants with/without trailing slash to prevent mismatch errors
+  if (clientUrl.endsWith("/")) {
+    allowedOrigins.push(clientUrl.slice(0, -1));
+  } else {
+    allowedOrigins.push(`${clientUrl}/`);
+  }
+}
+
 app.use(cors({
-  origin: [process.env.CLIENT_URL || "http://localhost:5173", "http://localhost:3000", "http://localhost:5173"],
+  origin: allowedOrigins,
   credentials: true,
 }));
 app.use(express.json());
