@@ -1,0 +1,51 @@
+### ─── VARIABLES ─────────────────────────────────────────────────────────────
+@baseUrl = http://localhost:5000/api
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGFkODRmODRkMTJkMzU5Zjk2YjJkOSIsImlhdCI6MTc3OTA5NTY4OCwiZXhwIjoxNzc5NzAwNDg4fQ.k3wfl7TvkW6NRYMm1zPJLwuj8bL-m2gfHX9yEIdwWMI
+
+
+### ─── HEALTH CHECK ──────────────────────────────────────────────────────────
+GET {{baseUrl}}/health
+
+
+### ─── REGISTER ──────────────────────────────────────────────────────────────
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Ravi Kumar",
+  "email": "ravi@example.com",
+  "password": "ravi1234",
+  "salary": 1200000
+}
+
+
+### ─── LOGIN ─────────────────────────────────────────────────────────────────
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "ravi@example.com",
+  "password": "ravi1234"
+}
+
+### After login, copy the token from response and paste into @token above
+
+
+### ─── GET PROFILE ────────────────────────────────────────────────────────────
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+
+
+### ─── UPDATE PROFILE ─────────────────────────────────────────────────────────
+PUT {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Ravi Kumar",
+  "salary": 1500000,
+  "preferredRegime": "new",
+  "financialYear": "2024-25"
+}

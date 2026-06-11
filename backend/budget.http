@@ -1,0 +1,81 @@
+### ─── VARIABLES ─────────────────────────────────────────────────────────────
+@baseUrl = http://localhost:5000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGFkODRmODRkMTJkMzU5Zjk2YjJkOSIsImlhdCI6MTc3OTA5NTY4OCwiZXhwIjoxNzc5NzAwNDg4fQ.k3wfl7TvkW6NRYMm1zPJLwuj8bL-m2gfHX9yEIdwWMI
+@budgetId = 6a0ade3beb46a7d1a325d77d
+
+
+### ─── SET BUDGET — Food ─────────────────────────────────────────────────────
+POST {{baseUrl}}/budget
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "category": "Food & Dining",
+  "monthlyLimit": 5000,
+  "month": 5,
+  "year": 2025,
+  "alertThreshold": 80
+}
+
+
+### ─── SET BUDGET — Travel ────────────────────────────────────────────────────
+POST {{baseUrl}}/budget
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "category": "Travel & Transport",
+  "monthlyLimit": 3000,
+  "month": 5,
+  "year": 2025,
+  "alertThreshold": 75
+}
+
+
+### ─── SET BUDGET — Shopping ──────────────────────────────────────────────────
+POST {{baseUrl}}/budget
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "category": "Shopping",
+  "monthlyLimit": 8000,
+  "month": 5,
+  "year": 2025,
+  "alertThreshold": 90
+}
+
+
+### ─── SET BUDGET — Overall Monthly Total ────────────────────────────────────
+POST {{baseUrl}}/budget
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "category": "Total",
+  "monthlyLimit": 50000,
+  "month": 5,
+  "year": 2025,
+  "alertThreshold": 85
+}
+
+
+### ─── GET BUDGETS (current month) ───────────────────────────────────────────
+GET {{baseUrl}}/budget
+Authorization: Bearer {{token}}
+
+
+### ─── GET BUDGETS — specific month/year ─────────────────────────────────────
+GET {{baseUrl}}/budget?month=5&year=2025
+Authorization: Bearer {{token}}
+
+
+### ─── GET BUDGET ALERTS ──────────────────────────────────────────────────────
+# Returns only categories that have crossed their alert threshold
+GET {{baseUrl}}/budget/alerts
+Authorization: Bearer {{token}}
+
+
+### ─── DELETE BUDGET ──────────────────────────────────────────────────────────
+DELETE {{baseUrl}}/budget/{{budgetId}}
+Authorization: Bearer {{token}}

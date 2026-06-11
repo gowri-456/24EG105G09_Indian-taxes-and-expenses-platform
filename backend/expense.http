@@ -1,0 +1,92 @@
+### ─── VARIABLES ─────────────────────────────────────────────────────────────
+@baseUrl = http://localhost:5000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGFkODRmODRkMTJkMzU5Zjk2YjJkOSIsImlhdCI6MTc3OTA5NTY4OCwiZXhwIjoxNzc5NzAwNDg4fQ.k3wfl7TvkW6NRYMm1zPJLwuj8bL-m2gfHX9yEIdwWMI
+@expenseId =6a0adec884d12d359f96b2da
+
+
+### ─── ADD EXPENSE ───────────────────────────────────────────────────────────
+POST {{baseUrl}}/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Swiggy dinner",
+  "amount": 450,
+  "category": "Food & Dining",
+  "date": "2025-05-18",
+  "description": "Biryani order",
+  "paymentMode": "UPI",
+  "isTaxDeductible": false
+}
+
+
+### ─── ADD EXPENSE — Travel ───────────────────────────────────────────────────
+POST {{baseUrl}}/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Ola cab to office",
+  "amount": 180,
+  "category": "Travel & Transport",
+  "date": "2025-05-18",
+  "paymentMode": "UPI"
+}
+
+
+### ─── ADD EXPENSE — Rent ─────────────────────────────────────────────────────
+POST {{baseUrl}}/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Monthly Rent",
+  "amount": 18000,
+  "category": "Rent",
+  "date": "2025-05-01",
+  "paymentMode": "Net Banking"
+}
+
+
+### ─── GET ALL EXPENSES ───────────────────────────────────────────────────────
+GET {{baseUrl}}/expenses
+Authorization: Bearer {{token}}
+
+
+### ─── GET EXPENSES — with filters ──────────────────────────────────────────
+GET {{baseUrl}}/expenses?month=5&year=2025&page=1&limit=10
+Authorization: Bearer {{token}}
+
+
+### ─── GET EXPENSES — by category ───────────────────────────────────────────
+GET {{baseUrl}}/expenses?category=Food & Dining
+Authorization: Bearer {{token}}
+
+
+### ─── GET EXPENSES — by date range ─────────────────────────────────────────
+GET {{baseUrl}}/expenses?startDate=2025-05-01&endDate=2025-05-31
+Authorization: Bearer {{token}}
+
+
+### ─── GET EXPENSE SUMMARY (category-wise) ───────────────────────────────────
+GET {{baseUrl}}/expenses/summary?month=5&year=2025
+Authorization: Bearer {{token}}
+
+
+### ─── UPDATE EXPENSE ─────────────────────────────────────────────────────────
+PUT {{baseUrl}}/expenses/{{expenseId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Swiggy dinner (updated)",
+  "amount": 500,
+  "category": "Food & Dining",
+  "date": "2025-05-18",
+  "paymentMode": "UPI"
+}
+
+
+### ─── DELETE EXPENSE ─────────────────────────────────────────────────────────
+DELETE {{baseUrl}}/expenses/{{expenseId}}
+Authorization: Bearer {{token}}

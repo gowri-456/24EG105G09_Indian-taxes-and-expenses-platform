@@ -1,0 +1,89 @@
+### ─── VARIABLES ─────────────────────────────────────────────────────────────
+@baseUrl = http://localhost:5000/api
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMGFkODRmODRkMTJkMzU5Zjk2YjJkOSIsImlhdCI6MTc3OTA5NTY4OCwiZXhwIjoxNzc5NzAwNDg4fQ.k3wfl7TvkW6NRYMm1zPJLwuj8bL-m2gfHX9yEIdwWMI
+@incomeId = 6a0adf9084d12d359f96b2dd
+
+
+### ─── ADD INCOME — Salary ───────────────────────────────────────────────────
+POST {{baseUrl}}/income
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "source": "Salary",
+  "amount": 100000,
+  "date": "2025-05-01",
+  "description": "May 2025 salary credit",
+  "isRecurring": true,
+  "financialYear": "2025-26"
+}
+
+
+### ─── ADD INCOME — Freelancing ──────────────────────────────────────────────
+POST {{baseUrl}}/income
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "source": "Freelancing",
+  "amount": 25000,
+  "date": "2025-05-10",
+  "description": "React project - client payment",
+  "isRecurring": false,
+  "financialYear": "2025-26"
+}
+
+
+### ─── ADD INCOME — Investments ──────────────────────────────────────────────
+POST {{baseUrl}}/income
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "source": "Investments",
+  "amount": 8000,
+  "date": "2025-05-15",
+  "description": "Mutual fund SIP returns",
+  "isRecurring": false,
+  "financialYear": "2025-26"
+}
+
+
+### ─── GET ALL INCOME ─────────────────────────────────────────────────────────
+GET {{baseUrl}}/income
+Authorization: Bearer {{token}}
+
+
+### ─── GET INCOME — by month ─────────────────────────────────────────────────
+GET {{baseUrl}}/income?month=5&year=2025
+Authorization: Bearer {{token}}
+
+
+### ─── GET INCOME — by financial year ───────────────────────────────────────
+GET {{baseUrl}}/income?financialYear=2025-26
+Authorization: Bearer {{token}}
+
+
+### ─── GET INCOME SUMMARY (source-wise) ──────────────────────────────────────
+GET {{baseUrl}}/income/summary?year=2025
+Authorization: Bearer {{token}}
+
+
+### ─── UPDATE INCOME ──────────────────────────────────────────────────────────
+PUT {{baseUrl}}/income/{{incomeId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "source": "Salary",
+  "amount": 105000,
+  "date": "2025-05-01",
+  "description": "May 2025 salary + bonus",
+  "isRecurring": true,
+  "financialYear": "2025-26"
+}
+
+
+### ─── DELETE INCOME ──────────────────────────────────────────────────────────
+DELETE {{baseUrl}}/income/{{incomeId}}
+Authorization: Bearer {{token}}

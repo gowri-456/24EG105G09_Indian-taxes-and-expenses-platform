@@ -1,0 +1,40 @@
+import jwt from "jsonwebtoken";
+import User from "../models/UserModel.js";
+
+const verifyToken = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        message: "Access denied. No token provided.",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Attach user to request (exclude password)
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User no longer exists.",
+      });
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({ success: false, message: "Invalid token." });
+    }
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Token has expired. Please login again." });
+    }
+    next(err);
+  }
+};
+
+export default verifyToken;
