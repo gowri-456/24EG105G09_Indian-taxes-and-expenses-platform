@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/:path*", "destination": "https://two4eg105g09-indian-taxes-and-expenses-v3mq.onrender.com/api/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
